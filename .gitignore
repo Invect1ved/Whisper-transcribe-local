@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Whisper / Hugging Face cache (скачивается при первом запуске)
+.cache/
+
+# Результаты транскрибации рядом с тестовыми файлами
+*.txt
+!requirements.txt
+*.srt
+
+# OS / IDE
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
