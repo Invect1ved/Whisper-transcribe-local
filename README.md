@@ -10,14 +10,20 @@
 - Экспорт в `.txt` и `.srt`
 - Русский, английский, украинский и автоопределение языка
 
-## Требования
+## Готовый EXE
+
+Скачайте архив из [Releases](https://github.com/Invect1ved/Whisper-transcribe-local/releases), распакуйте и запустите `WhisperTranscribe.exe`.
+
+Python ставить не нужно. Модель скачается при первом распознавании. Для ускорения нужна видеокарта NVIDIA.
+
+## Требования (запуск из исходников)
 
 - Windows 10/11
 - Python 3.12+
 - FFmpeg
 - NVIDIA GPU (опционально, для ускорения)
 
-## Установка
+## Установка из исходников
 
 ```powershell
 winget install Python.Python.3.12
@@ -57,10 +63,12 @@ cd whisper-transcribe
 
 ```
 whisper-transcribe/
-├── transcribe_app.py   # основное приложение
-├── requirements.txt    # зависимости Python
-├── setup.bat           # установка окружения
-├── run.bat             # запуск GUI
+├── transcribe_app.py        # основное приложение
+├── requirements.txt         # зависимости Python
+├── setup.bat                # установка окружения
+├── run.bat                  # запуск GUI
+├── WhisperTranscribe.spec   # сборка EXE
+├── build_exe.ps1            # скрипт сборки релиза
 └── README.md
 ```
 

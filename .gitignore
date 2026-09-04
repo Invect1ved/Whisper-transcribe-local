@@ -5,6 +5,7 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+*.spec.bak
 
 # Whisper / Hugging Face cache (скачивается при первом запуске)
 .cache/

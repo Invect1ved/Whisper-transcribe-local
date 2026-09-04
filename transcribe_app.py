@@ -35,21 +35,49 @@ LANGUAGES = [
 
 
 def app_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
     return Path(__file__).resolve().parent
+
+
+def bundle_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(getattr(sys, "_MEIPASS", app_dir()))
+    return Path(__file__).resolve().parent
+
+
+def cuda_bin_dirs() -> list[Path]:
+    roots = [
+        bundle_dir(),
+        app_dir(),
+        app_dir() / "_internal",
+        Path(sys.prefix) / "Lib" / "site-packages",
+    ]
+    dirs: list[Path] = []
+    seen: set[str] = set()
+    for root in roots:
+        candidates = [root]
+        nvidia = root / "nvidia"
+        if nvidia.is_dir():
+            candidates.append(nvidia)
+        for base in candidates:
+            for pattern in ("*/bin", "nvidia/*/bin", "*/lib/x64"):
+                for bindir in base.glob(pattern):
+                    key = str(bindir.resolve()) if bindir.exists() else str(bindir)
+                    if bindir.is_dir() and key not in seen:
+                        seen.add(key)
+                        dirs.append(bindir)
+        if (root / "cublas64_12.dll").is_file():
+            key = str(root.resolve())
+            if key not in seen:
+                seen.add(key)
+                dirs.append(root)
+    return dirs
 
 
 def ensure_cuda_dlls() -> None:
     """Windows не подхватывает cuBLAS/cuDNN из pip без явного add_dll_directory."""
-    nvidia = Path(sys.prefix) / "Lib" / "site-packages" / "nvidia"
-    if not nvidia.is_dir():
-        return
-    dirs: list[str] = []
-    for bindir in nvidia.glob("*/bin"):
-        if bindir.is_dir():
-            dirs.append(str(bindir))
-    for bindir in nvidia.glob("*/lib/x64"):
-        if bindir.is_dir():
-            dirs.append(str(bindir))
+    dirs = [str(path) for path in cuda_bin_dirs()]
     if not dirs:
         return
     os.environ["PATH"] = os.pathsep.join(dirs + [os.environ.get("PATH", "")])
@@ -67,6 +95,7 @@ def ffmpeg_candidates() -> list[Path]:
     if env:
         paths.append(Path(env))
     paths.append(app_dir() / "ffmpeg.exe")
+    paths.append(bundle_dir() / "ffmpeg.exe")
     winget = Path.home() / "AppData/Local/Microsoft/WinGet/Packages"
     if winget.exists():
         paths.extend(winget.glob("Gyan.FFmpeg*/ffmpeg-*/bin/ffmpeg.exe"))
