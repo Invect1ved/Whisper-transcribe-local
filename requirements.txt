@@ -1,4 +1,7 @@
 faster-whisper>=1.1.0
+customtkinter>=5.2.0
+# CPU fallback. GPU wheel: pip install sherpa-onnx==1.13.7+cuda12.cudnn9 -f https://k2-fsa.github.io/sherpa/onnx/cuda.html
+sherpa-onnx>=1.10.0
 nvidia-cublas-cu12
 nvidia-cuda-runtime-cu12
 nvidia-cudnn-cu12

@@ -34,6 +34,12 @@ if errorlevel 1 (
   exit /b 1
 )
 
+echo Пробую GPU-версию sherpa-onnx для лекторов...
+".venv\Scripts\python.exe" -m pip install --upgrade "sherpa-onnx==1.13.7+cuda12.cudnn9" -f https://k2-fsa.github.io/sherpa/onnx/cuda.html
+if errorlevel 1 (
+  echo GPU sherpa-onnx не установилась — лекторы будут на CPU.
+)
+
 echo.
 echo Готово. Запускайте run.bat
 pause

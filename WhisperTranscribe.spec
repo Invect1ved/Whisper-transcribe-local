@@ -55,9 +55,22 @@ hiddenimports: list[str] = [
     "huggingface_hub",
     "tqdm",
     "numpy",
+    "customtkinter",
+    "darkdetect",
+    "sherpa_onnx",
+    "diarize",
 ]
 
-for package in ("faster_whisper", "ctranslate2", "onnxruntime", "av", "tokenizers", "huggingface_hub"):
+for package in (
+    "faster_whisper",
+    "ctranslate2",
+    "onnxruntime",
+    "av",
+    "tokenizers",
+    "huggingface_hub",
+    "customtkinter",
+    "sherpa_onnx",
+):
     pkg_datas, pkg_binaries, pkg_hidden = collect_all(package)
     datas += pkg_datas
     binaries += pkg_binaries
@@ -66,6 +79,7 @@ for package in ("faster_whisper", "ctranslate2", "onnxruntime", "av", "tokenizer
 binaries += collect_dynamic_libs("ctranslate2")
 binaries += collect_dynamic_libs("onnxruntime")
 binaries += collect_dynamic_libs("av")
+binaries += collect_dynamic_libs("sherpa_onnx")
 
 a = Analysis(
     ["transcribe_app.py"],
