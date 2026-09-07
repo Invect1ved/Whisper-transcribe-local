@@ -2,7 +2,9 @@
 
 Бесплатная транскрибация аудио и видео на Windows через [faster-whisper](https://github.com/SYSTRAN/faster-whisper). Работает офлайн после первого скачивания модели.
 
-![Главный экран Whisper Transcribe Local](docs/screenshot.png)
+<p align="center">
+  <img src="docs/screenshot.png" alt="Главный экран Whisper Transcribe Local" width="1100">
+</p>
 
 ## Возможности
 
