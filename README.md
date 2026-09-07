@@ -2,6 +2,8 @@
 
 Бесплатная транскрибация аудио и видео на Windows через [faster-whisper](https://github.com/SYSTRAN/faster-whisper). Работает офлайн после первого скачивания модели.
 
+![Главный экран Whisper Transcribe Local](docs/screenshot.png)
+
 ## Возможности
 
 - Современный интерфейс на CustomTkinter
@@ -69,6 +71,7 @@ cd whisper-transcribe
 whisper-transcribe/
 ├── transcribe_app.py        # интерфейс
 ├── diarize.py               # определение лекторов
+├── docs/screenshot.png      # скрин главного экрана
 ├── requirements.txt         # зависимости Python
 ├── setup.bat                # установка окружения
 ├── run.bat                  # запуск GUI
